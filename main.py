@@ -29,7 +29,7 @@ else:
     USER = get_username()
 
 def delay():
-    sleep(random.randint(3,5))
+    sleep(random.randint(2,4))
 
 root = tk.Tk()
 root.withdraw()
@@ -50,7 +50,7 @@ phones = data.phone.values
 names = data.name.values
 
 
-XPATH_BUTTON_SEND = '/html/body/div[1]/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div/span[2]/div/div[2]/div[2]/button/span'
+XPATH_BUTTON_SEND = "/html/body/div[1]/div[1]/div[1]/div[2]/div[2]/span/div[1]/span/div[1]/div/div[2]/div/div[2]/div[2]/div/div"
 XPATH_TEXT = '/html/body/div[1]/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]'
 
 
@@ -95,10 +95,11 @@ for phone, name in zip(phones, names):
         ActionChains(driver).send_keys(line).perform()
         ActionChains(driver).key_down(Keys.SHIFT).key_down(Keys.ENTER).key_up(Keys.SHIFT).key_up(Keys.ENTER).perform()
 
-    delay()
     driver.find_element('css selector', "span[data-icon='clip']").click()
-    driver.find_element('css selector',"input[type='file']").send_keys(IMAGE_FILE)
+    driver.find_element('css selector', "input[type='file']").send_keys(IMAGE_FILE)
     delay()
-    element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, XPATH_BUTTON_SEND)))
-    element.click()
+    driver.find_element('xpath', XPATH_BUTTON_SEND).click()
+
     sleep(random.randint(7,10))
+
+driver.close()
