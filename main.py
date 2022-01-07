@@ -98,6 +98,6 @@ for phone, name in zip(phones, names):
     driver.find_element('css selector', "span[data-icon='clip']").click()
     driver.find_element('css selector',"input[type='file']").send_keys(IMAGE_FILE)
     delay()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, XPATH_BUTTON_SEND)))
-    driver.find_element('xpath', XPATH_BUTTON_SEND).click()
+    element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, XPATH_BUTTON_SEND)))
+    element.click()
     sleep(random.randint(7,10))
