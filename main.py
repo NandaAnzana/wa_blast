@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 import random
 from time import sleep
@@ -14,10 +14,19 @@ from sys import platform
 import tkinter as tk
 from tkinter import filedialog
 import os
-import pwd
+import argparse
 
-def get_username():
-    return pwd.getpwuid(os.getuid())[0]
+if platform == "win32":
+    parser = argparse.ArgumentParser(description='User Folder to open Firefox Profile')
+
+    parser.add_argument('--user', dest='user', type=str, help='Name of folder user that store Firefox Profile')
+    args = parser.parse_args()
+    USER = args.user
+else:
+    import pwd
+    def get_username():
+        return pwd.getpwuid(os.getuid())[0]
+    USER = get_username()
 
 def delay():
     sleep(random.randint(3,5))
@@ -35,7 +44,7 @@ DATA_FILE = filedialog.askopenfilename(title="Select a data", filetypes = [("Exc
 data = pd.read_excel(DATA_FILE)
 phones = data.phone.values
 names = data.name.values
-USER = get_username()
+
 
 XPATH_BUTTON_SEND = '/html/body/div[1]/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div/span[2]/div/div[2]/div[2]/button/span'
 XPATH_TEXT = '/html/body/div[1]/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]'
