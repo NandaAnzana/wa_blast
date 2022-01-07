@@ -29,7 +29,7 @@ else:
     USER = get_username()
 
 def delay():
-    sleep(random.randint(3,5))
+    sleep(random.randint(5,7))
 
 root = tk.Tk()
 root.withdraw()
