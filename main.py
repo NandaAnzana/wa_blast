@@ -39,9 +39,13 @@ TXT_FILE = filedialog.askopenfilename(title="Select a text file", filetypes = [(
 IMAGE_FILE = filedialog.askopenfilename(title="Select a Image", filetypes = [("JPG files", "*.jpg"),
                                                                             ("PNG files", "*.png"),
                                                                             ("JPEG files", "*.jpeg")])
-DATA_FILE = filedialog.askopenfilename(title="Select a data", filetypes = [("Excel files", "*.xlsx")])
+DATA_FILE = filedialog.askopenfilename(title="Select a data", filetypes = [("Excel files", "*.xlsx"),
+                                                                            ("CSV files", "*.csv")])
 
-data = pd.read_excel(DATA_FILE)
+if DATA_FILE.endswith(".xlsx"):
+    data = pd.read_excel(DATA_FILE)
+else:
+    data = pd.read_csv(DATA_FILE)
 phones = data.phone.values
 names = data.name.values
 
