@@ -29,7 +29,7 @@ else:
     USER = get_username()
 
 def delay():
-    sleep(random.randint(5,7))
+    sleep(random.randint(3,5))
 
 root = tk.Tk()
 root.withdraw()
@@ -95,6 +95,7 @@ for phone, name in zip(phones, names):
         ActionChains(driver).send_keys(line).perform()
         ActionChains(driver).key_down(Keys.SHIFT).key_down(Keys.ENTER).key_up(Keys.SHIFT).key_up(Keys.ENTER).perform()
 
+    delay()
     driver.find_element('css selector', "span[data-icon='clip']").click()
     driver.find_element('css selector',"input[type='file']").send_keys(IMAGE_FILE)
     delay()
