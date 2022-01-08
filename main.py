@@ -58,6 +58,7 @@ with open(TXT_FILE, "r") as f:
     text = f.read()
 
 if platform == "win32":
+    IMAGE_FILE = IMAGE_FILE.replace("/", "\\")
     PROFILES_PATH = f'C:\\Users\\{USER}\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\'
 else:
     PROFILES_PATH = f'/Users/{USER}/Library/Application Support/Firefox/Profiles/'
