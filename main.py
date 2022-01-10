@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
+from utils import strip_name
 import random
 from time import sleep
 from sys import platform
@@ -90,7 +91,7 @@ except TimeoutException:
 for phone, name in zip(phones, names):
     driver.get(f"http://web.whatsapp.com/send?phone={phone}")
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, XPATH_TEXT)))
-
+    name = strip_name(name)
     # Write message
     for line in text.split('\n'):
         ActionChains(driver).send_keys(line).perform()
