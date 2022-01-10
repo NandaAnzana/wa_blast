@@ -99,7 +99,7 @@ for phone, name in zip(phones, names):
         for line in text.split('\n'):
             ActionChains(driver).send_keys(line).perform()
             ActionChains(driver).key_down(Keys.SHIFT).key_down(Keys.ENTER).key_up(Keys.SHIFT).key_up(Keys.ENTER).perform()
-
+        delay()
         driver.find_element('css selector', "span[data-icon='clip']").click()
         driver.find_element('css selector', "input[type='file']").send_keys(IMAGE_FILE)
         delay()
@@ -109,6 +109,6 @@ for phone, name in zip(phones, names):
         sleep(random.randint(7,10))
     except Exception as e:
         index += 1
-        raise e
+        print(e)
 data.to_csv("result.csv", index=False)
 driver.close()
