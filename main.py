@@ -55,7 +55,7 @@ XPATH_BUTTON_SEND = "/html/body/div[1]/div[1]/div[1]/div[2]/div[2]/span/div[1]/s
 XPATH_TEXT = '/html/body/div[1]/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]'
 
 
-with open(TXT_FILE, "r") as f:
+with open(TXT_FILE, "r", encoding='utf-8') as f:
     text = f.read()
 
 if platform == "win32":
