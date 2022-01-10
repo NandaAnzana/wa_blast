@@ -21,5 +21,6 @@ def strip_name(name):
     name = re.sub(r"(\S)\(", r'\1 (', name)
     name = name.split(" ")
     name = [word for word in name if clear_name(word)]
+    name = " ".join(name)
     name = name.strip()
     return name
