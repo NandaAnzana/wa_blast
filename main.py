@@ -88,20 +88,27 @@ except TimeoutException:
     driver.get(f"http://web.whatsapp.com/send?phone=628128154050")
     WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.CLASS_NAME, "_2Nr6U")))
 
+index = 0
+data["is_success"] = False
 for phone, name in zip(phones, names):
-    driver.get(f"http://web.whatsapp.com/send?phone={phone}")
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, XPATH_TEXT)))
-    name = strip_name(name)
-    # Write message
-    for line in text.split('\n'):
-        ActionChains(driver).send_keys(line).perform()
-        ActionChains(driver).key_down(Keys.SHIFT).key_down(Keys.ENTER).key_up(Keys.SHIFT).key_up(Keys.ENTER).perform()
+    try:
+        driver.get(f"http://web.whatsapp.com/send?phone={phone}")
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, XPATH_TEXT)))
+        name = strip_name(name)
+        # Write message
+        for line in text.split('\n'):
+            ActionChains(driver).send_keys(line).perform()
+            ActionChains(driver).key_down(Keys.SHIFT).key_down(Keys.ENTER).key_up(Keys.SHIFT).key_up(Keys.ENTER).perform()
 
-    driver.find_element('css selector', "span[data-icon='clip']").click()
-    driver.find_element('css selector', "input[type='file']").send_keys(IMAGE_FILE)
-    delay()
-    driver.find_element('xpath', XPATH_BUTTON_SEND).click()
+        driver.find_element('css selector', "span[data-icon='clip']").click()
+        driver.find_element('css selector', "input[type='file']").send_keys(IMAGE_FILE)
+        delay()
+        driver.find_element('xpath', XPATH_BUTTON_SEND).click()
+        data.loc[index,"is_success"] = True
+        index += 1
+        sleep(random.randint(7,10))
+    except:
+        index += 1
 
-    sleep(random.randint(7,10))
-
+data.to_csv("result.csv", index=False)
 driver.close()
