@@ -107,8 +107,8 @@ for phone, name in zip(phones, names):
         data.loc[index,"is_success"] = True
         index += 1
         sleep(random.randint(7,10))
-    except:
+    except Exception as e:
         index += 1
-
+        raise e
 data.to_csv("result.csv", index=False)
 driver.close()
